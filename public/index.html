@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="EcoTrace — Track, understand, and reduce your personal carbon footprint with AI-powered personalized guidance." />
+  <meta name="theme-color" content="#0b0f0b" />
+  <title>EcoTrace — Carbon Footprint Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+
+  <!-- Skip link for keyboard/screen-reader users -->
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <!-- ── NAV ──────────────────────────────────────────────────────────────── -->
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+    <div class="nav-brand" aria-label="EcoTrace home">
+      <span aria-hidden="true">🌿</span>
+      <span class="brand-name">EcoTrace</span>
+    </div>
+    <ul class="nav-links" role="list">
+      <li><a href="#tracker">Track</a></li>
+      <li><a href="#insights">Insights</a></li>
+      <li><a href="#assistant">AI Guide</a></li>
+    </ul>
+    <div class="nav-score" aria-live="polite" aria-label="Today's CO₂ total">
+      <span class="score-label">Today</span>
+      <span class="score-value" id="nav-score">0 kg CO₂</span>
+    </div>
+  </nav>
+
+  <main id="main">
+
+    <!-- ── HERO ─────────────────────────────────────────────────────────────── -->
+    <section class="hero" aria-labelledby="hero-heading">
+      <div class="hero-bg-grid" aria-hidden="true"></div>
+      <div class="hero-content">
+        <p class="hero-eyebrow">Carbon Footprint Awareness</p>
+        <h1 class="hero-title" id="hero-heading">
+          Every action leaves<br />
+          <em>a mark on the world.</em>
+        </h1>
+        <p class="hero-sub">
+          Track what you emit. Understand why it matters.<br />
+          Act to reduce it — guided by AI personalised to your life.
+        </p>
+        <div class="hero-ctas">
+          <a href="#tracker" class="btn-primary">Start Tracking</a>
+          <a href="#assistant" class="btn-ghost">Talk to AI Guide →</a>
+        </div>
+      </div>
+
+      <div class="hero-visual" aria-hidden="true">
+        <div class="co2-ring">
+          <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="CO₂ ring meter">
+            <circle cx="100" cy="100" r="80" fill="none" stroke="#1a2e1a" stroke-width="12"/>
+            <circle cx="100" cy="100" r="80" fill="none" stroke="#4ade80" stroke-width="12"
+              stroke-dasharray="502" stroke-dashoffset="502" stroke-linecap="round"
+              class="ring-progress" id="hero-ring" transform="rotate(-90 100 100)"/>
+          </svg>
+          <div class="ring-center">
+            <div class="ring-number" id="ring-number">0</div>
+            <div class="ring-unit">kg CO₂</div>
+            <div class="ring-label">today</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── TRACKER ───────────────────────────────────────────────────────────── -->
+    <section class="tracker" id="tracker" aria-labelledby="tracker-heading">
+      <div class="section-header">
+        <p class="section-eyebrow">Daily Tracker</p>
+        <h2 id="tracker-heading">Log today's activities</h2>
+        <p>Select the actions that apply to your day. CO₂ figures are peer-reviewed representative averages.</p>
+      </div>
+
+      <div class="tracker-grid" id="tracker-grid" role="list" aria-label="Activity categories">
+
+        <!-- Transport -->
+        <div class="category-card" role="listitem">
+          <div class="card-header">
+            <span class="card-icon" aria-hidden="true">🚗</span>
+            <h3 class="card-title">Transport</h3>
+          </div>
+          <ul class="card-actions" role="list" aria-label="Transport activities">
+            <li class="action-item">
+              <span class="action-name">Car (20 km)</span>
+              <span class="action-co2" aria-label="2.1 kilograms CO2">2.1 kg</span>
+              <button class="add-btn" aria-label="Add Car trip 20km (2.1 kg CO₂)" onclick="logActivity(this,'Car (20 km)','transport',2.1)">+</button>
+            </li>
+            <li class="action-item">
+              <span class="action-name">Metro / Bus</span>
+              <span class="action-co2" aria-label="0.25 kilograms CO2">0.25 kg</span>
+              <button class="add-btn" aria-label="Add Metro or bus ride (0.25 kg CO₂)" onclick="logActivity(this,'Metro / Bus','transport',0.25)">+</button>
+            </li>
+            <li class="action-item">
+              <span class="action-name">Short-haul flight</span>
+              <span class="action-co2" aria-label="18 kilograms CO2">18.0 kg</span>
+              <button class="add-btn" aria-label="Add short-haul flight (18 kg CO₂)" onclick="logActivity(this,'Short-haul flight','transport',18.0)">+</button>
+            </li>
+            <li class="action-item">
+              <span class="action-name">Cycle / Walk</span>
+              <span class="action-co2 zero" aria-label="Zero CO2">0 kg</span>
+              <button class="add-btn zero-btn" aria-label="Add cycling or walking (0 kg CO₂)" onclick="logActivity(this,'Cycle / Walk','transport',0)">+</button>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Food -->
+        <div class="category-card" role="listitem">
+          <div class="card-header">
+            <span class="card-icon" aria-hidden="true">🍽️</span>
+            <h3 class="card-title">Food</h3>
+          </div>
+          <ul class="card-actions" role="list" aria-label="Food activities">
+            <li class="action-item">
+              <span class="action-name">Beef meal</span>
+              <span class="action-co2" aria-label="6.6 kilograms CO2">6.6 kg</span>
+              <button class="add-btn" aria-label="Add beef meal (6.6 kg CO₂)" onclick="logActivity(this,'Beef meal','food',6.6)">+</button>
+            </li>
+            <li class="action-item">
+              <span class="action-name">Chicken meal</span>
+              <span class="action-co2" aria-label="1.4 kilograms CO2">1.4 kg</span>
+              <button class="add-btn" aria-label="Add chicken meal (1.4 kg CO₂)" onclick="logActivity(this,'Chicken meal','food',1.4)">+</button>
+            </li>
+            <li class="action-item">
+              <span class="action-name">Vegetarian meal</span>
+              <span class="action-co2" aria-label="0.5 kilograms CO2">0.5 kg</span>
+              <button class="add-btn" aria-label="Add vegetarian meal (0.5 kg CO₂)" onclick="logActivity(this,'Vegetarian meal','food',0.5)">+</button>
+            </li>
+            <li class="action-item">
+              <span class="action-name">Vegan meal</span>
+              <span class="action-co2" aria-label="0.2 kilograms CO2">0.2 kg</span>
+              <button class="add-btn" aria-label="Add vegan meal (0.2 kg CO₂)" onclick="logActivity(this,'Vegan meal','food',0.2)">+</button>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Energy -->
+        <div class="category-card" role="listitem">
+          <div class="card-header">
+            <span class="card-icon" aria-hidden="true">⚡</span>
+            <h3 class="card-title">Home Energy</h3>
+          </div>
+          <ul class="card-actions" role="list" aria-label="Home energy activities">
+            <li class="action-item">
+              <span class="action-name">AC for 4 hours</span>
+              <span class="action-co2" aria-label="1.2 kilograms CO2">1.2 kg</span>
+              <button class="add-btn" aria-label="Add AC usage 4 hours (1.2 kg CO₂)" onclick="logActivity(this,'AC for 4 hours','energy',1.2)">+</button>
+            </li>
+            <li class="action-item">
+              <span class="action-name">Hot shower (10 min)</span>
+              <span class="action-co2" aria-label="0.5 kilograms CO2">0.5 kg</span>
+              <button class="add-btn" aria-label="Add hot shower 10 minutes (0.5 kg CO₂)" onclick="logActivity(this,'Hot shower (10 min)','energy',0.5)">+</button>
+            </li>
+            <li class="action-item">
+              <span class="action-name">Laundry load</span>
+              <span class="action-co2" aria-label="0.7 kilograms CO2">0.7 kg</span>
+              <button class="add-btn" aria-label="Add laundry load (0.7 kg CO₂)" onclick="logActivity(this,'Laundry load','energy',0.7)">+</button>
+            </li>
+            <li class="action-item">
+              <span class="action-name">Streaming 2 hours</span>
+              <span class="action-co2" aria-label="0.04 kilograms CO2">0.04 kg</span>
+              <button class="add-btn" aria-label="Add 2 hours streaming (0.04 kg CO₂)" onclick="logActivity(this,'Streaming (2 hours)','energy',0.04)">+</button>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Shopping -->
+        <div class="category-card" role="listitem">
+          <div class="card-header">
+            <span class="card-icon" aria-hidden="true">🛍️</span>
+            <h3 class="card-title">Shopping</h3>
+          </div>
+          <ul class="card-actions" role="list" aria-label="Shopping activities">
+            <li class="action-item">
+              <span class="action-name">New T-shirt</span>
+              <span class="action-co2" aria-label="7 kilograms CO2">7.0 kg</span>
+              <button class="add-btn" aria-label="Add new T-shirt purchase (7 kg CO₂)" onclick="logActivity(this,'New T-shirt','shopping',7.0)">+</button>
+            </li>
+            <li class="action-item">
+              <span class="action-name">New jeans</span>
+              <span class="action-co2" aria-label="33.4 kilograms CO2">33.4 kg</span>
+              <button class="add-btn" aria-label="Add new jeans purchase (33.4 kg CO₂)" onclick="logActivity(this,'New jeans','shopping',33.4)">+</button>
+            </li>
+            <li class="action-item">
+              <span class="action-name">Online delivery</span>
+              <span class="action-co2" aria-label="0.5 kilograms CO2">0.5 kg</span>
+              <button class="add-btn" aria-label="Add online delivery package (0.5 kg CO₂)" onclick="logActivity(this,'Online delivery','shopping',0.5)">+</button>
+            </li>
+            <li class="action-item">
+              <span class="action-name">Second-hand item</span>
+              <span class="action-co2 zero" aria-label="0.1 kilograms CO2">0.1 kg</span>
+              <button class="add-btn" aria-label="Add second-hand item purchase (0.1 kg CO₂)" onclick="logActivity(this,'Second-hand item','shopping',0.1)">+</button>
+            </li>
+          </ul>
+        </div>
+
+      </div><!-- /tracker-grid -->
+
+      <!-- Activity log -->
+      <div class="activity-log" role="region" aria-labelledby="log-heading" aria-live="polite">
+        <div class="log-header">
+          <h3 id="log-heading">Today's Log</h3>
+          <button class="clear-btn" onclick="clearLog()" aria-label="Clear all logged activities">Clear all</button>
+        </div>
+        <p class="log-empty" id="log-empty">No activities logged yet. Select actions above to begin.</p>
+        <ul class="log-items" id="log-items" role="list" aria-label="Logged activities"></ul>
+        <div class="log-total" id="log-total" hidden>
+          <span>Total today</span>
+          <span id="total-display" aria-live="polite">0 kg CO₂</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── INSIGHTS ──────────────────────────────────────────────────────────── -->
+    <section class="insights" id="insights" aria-labelledby="insights-heading">
+      <div class="section-header">
+        <p class="section-eyebrow">Personalised Insights</p>
+        <h2 id="insights-heading">Understand your impact</h2>
+      </div>
+      <div class="insights-grid">
+
+        <div class="insight-card insight-main">
+          <p class="insight-label">Your total vs benchmarks</p>
+          <div class="insight-bar-wrap" role="group" aria-label="CO₂ comparison chart">
+            <div class="bar-row">
+              <span class="bar-person">You</span>
+              <div class="bar-track" role="progressbar" aria-valuemin="0" aria-valuemax="30" aria-valuenow="0" aria-label="Your CO₂">
+                <div class="bar-fill you-bar" id="you-bar" style="width:0%"></div>
+              </div>
+              <span class="bar-val" id="you-val" aria-live="polite">0 kg</span>
+            </div>
+            <div class="bar-row">
+              <span class="bar-person">World avg</span>
+              <div class="bar-track" role="progressbar" aria-valuemin="0" aria-valuemax="30" aria-valuenow="16" aria-label="World average 16 kg">
+                <div class="bar-fill avg-bar" style="width:53%"></div>
+              </div>
+              <span class="bar-val">16 kg</span>
+            </div>
+            <div class="bar-row">
+              <span class="bar-person">1.5°C target</span>
+              <div class="bar-track" role="progressbar" aria-valuemin="0" aria-valuemax="30" aria-valuenow="3.7" aria-label="Paris target 3.7 kg">
+                <div class="bar-fill target-bar" style="width:12%"></div>
+              </div>
+              <span class="bar-val">3.7 kg</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="insight-card">
+          <span class="insight-icon" aria-hidden="true">🌳</span>
+          <div class="insight-metric" id="trees-metric" aria-live="polite">0</div>
+          <p class="insight-desc">trees needed to absorb today's emissions</p>
+        </div>
+
+        <div class="insight-card">
+          <span class="insight-icon" aria-hidden="true">💡</span>
+          <div class="insight-metric insight-tip" id="tip-metric" aria-live="polite">Log activities</div>
+          <p class="insight-desc" id="tip-desc">to receive a personalised suggestion</p>
+        </div>
+
+        <div class="insight-card">
+          <span class="insight-icon" aria-hidden="true">📅</span>
+          <div class="insight-metric" id="annual-metric" aria-live="polite">0 t</div>
+          <p class="insight-desc">projected annual CO₂ at today's rate</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── AI ASSISTANT ──────────────────────────────────────────────────────── -->
+    <section class="assistant-section" id="assistant" aria-labelledby="assistant-heading">
+      <div class="section-header">
+        <p class="section-eyebrow">AI Guide</p>
+        <h2 id="assistant-heading">Your carbon coach</h2>
+        <p>Ask anything about your footprint. Your logged activities are automatically shared with the AI for contextual answers.</p>
+      </div>
+
+      <div class="assistant-container" role="region" aria-label="AI chat interface">
+        <div class="chat-window" id="chat-window" role="log" aria-live="polite" aria-label="Conversation" tabindex="0">
+          <div class="chat-message assistant-msg">
+            <div class="msg-avatar" aria-hidden="true">🌿</div>
+            <div class="msg-bubble">
+              Hello! I'm your EcoTrace AI guide. I can help you understand your carbon footprint, suggest impactful reductions, and answer any climate-related questions. Log some activities above and I'll give you advice based on <em>your</em> day.
+            </div>
+          </div>
+        </div>
+
+        <div class="quick-prompts" id="quick-prompts" aria-label="Quick question suggestions">
+          <button class="quick-btn" onclick="sendQuick(this)">What's my biggest impact area?</button>
+          <button class="quick-btn" onclick="sendQuick(this)">How can I reduce food emissions?</button>
+          <button class="quick-btn" onclick="sendQuick(this)">Explain the 1.5°C daily target</button>
+          <button class="quick-btn" onclick="sendQuick(this)">Give me 3 easy changes to start</button>
+        </div>
+
+        <div class="chat-input-row">
+          <label for="chat-input" class="sr-only">Ask the AI carbon coach</label>
+          <textarea
+            class="chat-input"
+            id="chat-input"
+            placeholder="Ask anything about your carbon footprint…"
+            rows="1"
+            maxlength="2000"
+            aria-describedby="input-hint"
+            onkeydown="handleKey(event)"
+          ></textarea>
+          <span id="input-hint" class="sr-only">Press Enter to send, Shift+Enter for new line</span>
+          <button class="send-btn" id="send-btn" onclick="sendMessage()" aria-label="Send message">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false">
+              <line x1="22" y1="2" x2="11" y2="13"/>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+            </svg>
+          </button>
+        </div>
+
+        <div class="char-count" id="char-count" aria-live="polite" aria-atomic="true"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ── FOOTER ────────────────────────────────────────────────────────────── -->
+  <footer class="footer" role="contentinfo">
+    <div class="footer-brand" aria-label="EcoTrace">🌿 EcoTrace</div>
+    <p>Personal carbon footprint tracking, powered by AI.</p>
+  </footer>
+
+  <script src="/js/app.js"></script>
+</body>
+</html>

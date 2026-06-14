@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: ecotrace
+    env: node
+    region: singapore
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: AI_PROVIDER
+        value: gemini
+      - key: GEMINI_MODEL
+        value: gemini-2.0-flash
+      - key: GEMINI_API_KEY
+        sync: false        # paste your key in Render dashboard
+      - key: ALLOWED_ORIGINS
+        sync: false        # set to https://ecotrace.onrender.com after first deploy
+    healthCheckPath: /api/health
+    autoDeploy: true
